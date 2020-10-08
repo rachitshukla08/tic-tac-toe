@@ -53,14 +53,14 @@ public class TicTacToeGame {
 		}
 	}
 	
-	public boolean makeAMove() {
+	public int makeAMove() {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Enter the position at which you want to make a move on the board:");
 		int position = Integer.parseInt(scanner.nextLine());
 		if((position>0)&&(position<10)&&board[position]==' ')
-			return true;
+			return position;
 		else 
-			return false;
+			return 0;
 	}
 
 	public static void main(String[] args) {
@@ -75,10 +75,10 @@ public class TicTacToeGame {
 		//Display Board
 		ticTacToe.showBoard();
 		//Check if user entered valid position
-		boolean isEmptyPosition = ticTacToe.makeAMove();
-		if(isEmptyPosition == true)
-			System.out.println("Valid position");
-		else 
+		int position = ticTacToe.makeAMove();
+		if(position == 0)
 			System.out.println("Invalid position or position already occupied");
+		else 
+			System.out.println("Valid position");
 	}
 }
