@@ -105,6 +105,9 @@ public class TicTacToeGame {
 		return 0;
 	}
 
+	/**
+	 * Logic for computer's turn
+	 */
 	public void playComputerMove() {
 
 		/*
@@ -269,11 +272,17 @@ public class TicTacToeGame {
 
 	}
 
+	/**
+	 * @return which player gets first turn
+	 */
 	public Player toss() {
 		int toss = (int) Math.floor(Math.random() * 10) % 2;
 		return toss == HEAD ? Player.Player : Player.Computer;
 	}
 
+	/**
+	 * @return winner
+	 */
 	public Player determineWinner() {
 		if ((board[1] == playerChoice && board[2] == playerChoice && board[3] == playerChoice)
 				|| (board[4] == playerChoice && board[5] == playerChoice && board[6] == playerChoice)
