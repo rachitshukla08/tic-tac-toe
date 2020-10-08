@@ -3,6 +3,9 @@ package com.capgemini.tictactoe;
 import java.util.Scanner;
 
 public class TicTacToeGame {
+	private char[] board = new char[10];
+	private char computerChoice;
+	private char playerChoice;
 
 	/**
 	 * UC1
@@ -10,7 +13,6 @@ public class TicTacToeGame {
 	 * @return boardElement array with empty board
 	 */
 	private char[] createBoard() {
-		char[] board = new char[10];
 		for (int index = 1; index < board.length; index++) {
 			board[index] = ' ';
 		}
@@ -20,26 +22,26 @@ public class TicTacToeGame {
 	/**
 	 * UC2
 	 * 
-	 * @return Whether input is by player or computer
+	 * @return Player Choice
 	 */
-	private String getInput() {
+	private char getPlayerChoice() {
 		Scanner scanner = new Scanner(System.in);
-		System.out.println("Please enter X or O");
-		char input = scanner.nextLine().charAt(0);
+		char choice = 0;
+		while (choice != 'X' && choice != 'O') {
+			System.out.println("Do you want to play as X or O?");
+			choice = scanner.nextLine().charAt(0);
+			playerChoice = choice == 'X' ? 'X' : 'O';
+			computerChoice = choice == 'X' ? 'O' : 'X';
+		}
 		scanner.close();
-		if (input == 'X')
-			return "Input is entered by player";
-		else if (input == 'O')
-			return "Input is entered by computer";
-		else
-			return "Invalid Input";
+		return playerChoice;
 	}
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to TicTacToe game");
 		TicTacToeGame ticTacToe = new TicTacToeGame();
-		char[] board = ticTacToe.createBoard();
-		String inputIsBy = ticTacToe.getInput();
-		System.out.println(inputIsBy);
+		ticTacToe.board = ticTacToe.createBoard();
+		char playerChoice = ticTacToe.getPlayerChoice();
+		System.out.println("Player selected = " + playerChoice);
 	}
 }
