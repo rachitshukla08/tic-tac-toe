@@ -33,10 +33,12 @@ public class TicTacToeGame {
 			playerChoice = choice == 'X' ? 'X' : 'O';
 			computerChoice = choice == 'X' ? 'O' : 'X';
 		}
-		scanner.close();
 		return playerChoice;
 	}
 
+	/**
+	 * UC3 Display the current state of board
+	 */
 	private void showBoard() {
 		int index = 1;
 		System.out.println(" -------------");
@@ -50,13 +52,33 @@ public class TicTacToeGame {
 			System.out.println("\n -------------");
 		}
 	}
+	
+	public boolean makeAMove() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Enter the position at which you want to make a move on the board:");
+		int position = Integer.parseInt(scanner.nextLine());
+		if((position>0)&&(position<10)&&board[position]==' ')
+			return true;
+		else 
+			return false;
+	}
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to TicTacToe game");
 		TicTacToeGame ticTacToe = new TicTacToeGame();
+		//Create a board
 		ticTacToe.board = ticTacToe.createBoard();
+		//Get Player Choice
 		char playerChoice = ticTacToe.getPlayerChoice();
 		System.out.println("Player selected = " + playerChoice);
+		System.out.println("Current board:");
+		//Display Board
 		ticTacToe.showBoard();
+		//Check if user entered valid position
+		boolean isEmptyPosition = ticTacToe.makeAMove();
+		if(isEmptyPosition == true)
+			System.out.println("Valid position");
+		else 
+			System.out.println("Invalid position or position already occupied");
 	}
 }
