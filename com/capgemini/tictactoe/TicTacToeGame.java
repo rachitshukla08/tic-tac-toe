@@ -71,7 +71,7 @@ public class TicTacToeGame {
 		Scanner scanner = new Scanner(System.in);
 		int position = 0;
 		Player winner = null;
-		while (winner == null && totalMoves < 10) {
+		while (winner == null && totalMoves < 9) {
 			if (player.equals(Player.Player)) {
 				System.out.println("Enter the position for PLAYER at which you want to make a move on the board:");
 				while (true) {
@@ -80,6 +80,7 @@ public class TicTacToeGame {
 						board[position] = playerChoice;
 						player = Player.Computer;
 						totalMoves++;
+						System.out.println("Total moves: "+totalMoves);
 						showBoard();
 						winner = determineWinner();
 						break;
@@ -90,8 +91,9 @@ public class TicTacToeGame {
 			} else if (player.equals(Player.Computer)) {
 				System.out.println("Computer's Turn:");
 				playComputerMove();
-				showBoard();
 				totalMoves++;
+				System.out.println("Total moves: "+totalMoves);
+				showBoard();
 				winner = determineWinner();
 				player = Player.Player;
 			}
@@ -107,8 +109,9 @@ public class TicTacToeGame {
 		if (totalMoves < 2) {
 			placeRandomly();
 		} else {
-			// rows:
-			// row1
+			/* WIN
+			 * rows
+			 * row1*/
 			if (board[1] == computerChoice && board[2] == computerChoice && board[3] == ' ')
 				board[3] = computerChoice;
 			else if (board[1] == computerChoice && board[3] == computerChoice && board[2] == ' ')
@@ -165,6 +168,65 @@ public class TicTacToeGame {
 			else if (board[3] == computerChoice && board[7] == computerChoice && board[5] == ' ')
 				board[5] = computerChoice;
 			else if (board[5] == computerChoice && board[7] == computerChoice && board[3] == ' ')
+				board[3] = computerChoice;
+			//BLOCK player from winning
+			//row1
+			else if (board[1] == playerChoice&& board[2] == playerChoice && board[3] == ' ')
+				board[3] = computerChoice;
+			else if (board[1] == playerChoice && board[3] == playerChoice && board[2] == ' ')
+				board[2] = computerChoice;
+			else if (board[2] == playerChoice && board[3] == playerChoice && board[1] == ' ')
+				board[1] = computerChoice;
+			// row2
+			else if (board[4] == playerChoice && board[5] == playerChoice && board[6] == ' ')
+				board[6] = computerChoice;
+			else if (board[5] == playerChoice && board[6] == playerChoice && board[4] == ' ')
+				board[4] = computerChoice;
+			else if (board[4] == playerChoice && board[6] == playerChoice && board[5] == ' ')
+				board[5] = computerChoice;
+			// row3
+			else if (board[7] == playerChoice && board[8] == playerChoice && board[9] == ' ')
+				board[9] = computerChoice;
+			else if (board[8] == playerChoice && board[9] == playerChoice && board[7] == ' ')
+				board[7] = computerChoice;
+			else if (board[7] == playerChoice && board[9] == playerChoice && board[8] == ' ')
+				board[8] = computerChoice;
+			// columns:
+			// column1:
+			else if (board[1] == playerChoice && board[4] == playerChoice && board[7] == ' ')
+				board[7] = computerChoice;
+			else if (board[1] == playerChoice && board[7] == playerChoice && board[4] == ' ')
+				board[4] = computerChoice;
+			else if (board[4] == playerChoice && board[7] == playerChoice && board[1] == ' ')
+				board[1] = computerChoice;
+			// column2
+			else if (board[2] == playerChoice && board[5] == playerChoice && board[8] == ' ')
+				board[8] = computerChoice;
+			else if (board[2] == playerChoice && board[8] == playerChoice && board[5] == ' ')
+				board[5] = computerChoice;
+			else if (board[5] == playerChoice && board[8] == playerChoice && board[2] == ' ')
+				board[2] = computerChoice;
+			// column3
+			else if (board[3] == playerChoice && board[6] == playerChoice && board[9] == ' ')
+				board[9] = computerChoice;
+			else if (board[3] == playerChoice && board[9] == playerChoice && board[6] == ' ')
+				board[6] = computerChoice;
+			else if (board[6] == playerChoice && board[9] == playerChoice && board[3] == ' ')
+				board[3] = computerChoice;
+			// diagonals
+			// diagonal1
+			else if (board[1] == playerChoice && board[5] == playerChoice && board[9] == ' ')
+				board[9] = computerChoice;
+			else if (board[1] == playerChoice && board[9] == playerChoice && board[5] == ' ')
+				board[5] = computerChoice;
+			else if (board[5] == playerChoice && board[9] == playerChoice && board[1] == ' ')
+				board[1] = computerChoice;
+			// diagonal2
+			else if (board[3] == playerChoice && board[5] == playerChoice && board[7] == ' ')
+				board[7] = computerChoice;
+			else if (board[3] == playerChoice && board[7] == playerChoice && board[5] == ' ')
+				board[5] = computerChoice;
+			else if (board[5] == playerChoice && board[7] == playerChoice && board[3] == ' ')
 				board[3] = computerChoice;
 			else
 				placeRandomly();
