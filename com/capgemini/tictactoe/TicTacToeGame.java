@@ -53,33 +53,38 @@ public class TicTacToeGame {
 			System.out.println("\n -------------");
 		}
 	}
-	
+
 	public int makeAMove() {
 		Scanner scanner = new Scanner(System.in);
 		int position = 0;
 		System.out.println("Enter the position at which you want to make a move on the board:");
-		while(true) {
+		while (true) {
 			position = Integer.parseInt(scanner.nextLine());
-			if((position>0)&&(position<10)&&board[position]==' ') {
+			if ((position > 0) && (position < 10) && board[position] == ' ') {
 				board[position] = playerChoice;
 				return position;
-			}
-			else 
+			} else
 				System.out.println("Invalid position or position already occupied. Please Re-Enter the position");
 		}
+	}
+
+	public boolean toss() {
+		int toss = (int) Math.floor(Math.random() * 10) % 2;
+		return toss == 1 ? true : false;
 	}
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to TicTacToe game");
 		TicTacToeGame ticTacToe = new TicTacToeGame();
-		//Create a board
+		boolean isPlayerFirst = ticTacToe.toss();
+		// Create a board
 		ticTacToe.board = ticTacToe.createBoard();
-		//Get Player Choice
+		// Get Player Choice
 		char playerChoice = ticTacToe.getPlayerChoice();
 		System.out.println("Player selected = " + playerChoice);
-		//Display Board
+		// Display Board
 		ticTacToe.showBoard();
-		//Check if user entered valid position and make a move
+		// Check if user entered valid position and make a move
 		int position = ticTacToe.makeAMove();
 		ticTacToe.showBoard();
 	}
