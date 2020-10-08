@@ -307,34 +307,42 @@ public class TicTacToeGame {
 	}
 
 	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
 		System.out.println("Welcome to TicTacToe game");
 		TicTacToeGame ticTacToe = new TicTacToeGame();
-		ticTacToe.board = ticTacToe.createBoard();
-		ticTacToe.showBoard();
-		Player player = ticTacToe.toss();
-		if (player.equals(Player.Player)) {
-			System.out.println("Player Plays First");
-			char playerChoice = ticTacToe.getPlayerChoice();
-			System.out.println("Player selected = " + playerChoice);
-			if (playerChoice == 'X')
-				ticTacToe.computerChoice = 'O';
-			else
+		char wantToPlay = 'Y';
+		while(wantToPlay == 'Y') {
+			ticTacToe.board = ticTacToe.createBoard();
+			ticTacToe.showBoard();
+			Player player = ticTacToe.toss();
+			if (player.equals(Player.Player)) {
+				System.out.println("Player Plays First");
+				char playerChoice = ticTacToe.getPlayerChoice();
+				System.out.println("Player selected = " + playerChoice);
+				if (playerChoice == 'X')
+					ticTacToe.computerChoice = 'O';
+				else
+					ticTacToe.computerChoice = 'X';
+				int position = 1;
+				while (position != 0) {
+					position = ticTacToe.makeAMove(player);
+					ticTacToe.showBoard();
+				}
+			} else {
+				System.out.println("Computer Plays First");
+				int position = 1;
 				ticTacToe.computerChoice = 'X';
-			int position = 1;
-			while (position != 0) {
-				position = ticTacToe.makeAMove(player);
-				ticTacToe.showBoard();
+				System.out.println("Computer selected: " + ticTacToe.computerChoice);
+				ticTacToe.playerChoice = 'O';
+				while (position != 0) {
+					position = ticTacToe.makeAMove(player);
+					ticTacToe.showBoard();
+				}
 			}
-		} else {
-			System.out.println("Computer Plays First");
-			int position = 1;
-			ticTacToe.computerChoice = 'X';
-			System.out.println("Computer selected: " + ticTacToe.computerChoice);
-			ticTacToe.playerChoice = 'O';
-			while (position != 0) {
-				position = ticTacToe.makeAMove(player);
-				ticTacToe.showBoard();
-			}
+			ticTacToe.totalMoves = 0;
+			System.out.println("Do you want to play another game?(Y/N)");
+			wantToPlay = scanner.nextLine().charAt(0);
 		}
+		System.out.println("Thank you for playing my TicTacToe game!");
 	}
 }
