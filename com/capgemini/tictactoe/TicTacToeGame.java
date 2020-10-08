@@ -255,7 +255,8 @@ public class TicTacToeGame {
 					break;
 				}
 			}
-		} 
+		} else if (board[1] != ' ' && board[3] != ' ' && board[7] != ' ' && board[9] != ' '&&board[5] == ' ')
+			board[5] = computerChoice;
 		else {
 			while (true) {
 				computerTurn = 1 + (int) Math.floor((Math.random() * 10)) % 9;
