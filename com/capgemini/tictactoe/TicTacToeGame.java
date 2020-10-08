@@ -37,11 +37,26 @@ public class TicTacToeGame {
 		return playerChoice;
 	}
 
+	private void showBoard() {
+		int index = 1;
+		System.out.println(" -------------");
+		for (int rows = 1; rows <= 3; rows++) {
+			for (int columns = 1; columns <= 3; columns++) {
+				System.out.print(" | ");
+				System.out.print(board[index]);
+				index++;
+			}
+			System.out.print(" | ");
+			System.out.println("\n -------------");
+		}
+	}
+
 	public static void main(String[] args) {
 		System.out.println("Welcome to TicTacToe game");
 		TicTacToeGame ticTacToe = new TicTacToeGame();
 		ticTacToe.board = ticTacToe.createBoard();
 		char playerChoice = ticTacToe.getPlayerChoice();
 		System.out.println("Player selected = " + playerChoice);
+		ticTacToe.showBoard();
 	}
 }
