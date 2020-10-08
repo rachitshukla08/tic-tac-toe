@@ -3,9 +3,15 @@ package com.capgemini.tictactoe;
 import java.util.Scanner;
 
 public class TicTacToeGame {
+	public static final int HEAD = 0;
+	public static final int TAIL = 1;
 	private char[] board = new char[10];
 	private char computerChoice;
 	private char playerChoice;
+
+	public static enum Player {
+		Player, Computer
+	}
 
 	/**
 	 * UC1
@@ -57,35 +63,67 @@ public class TicTacToeGame {
 	public int makeAMove() {
 		Scanner scanner = new Scanner(System.in);
 		int position = 0;
-		System.out.println("Enter the position at which you want to make a move on the board:");
-		while (true) {
-			position = Integer.parseInt(scanner.nextLine());
-			if ((position > 0) && (position < 10) && board[position] == ' ') {
-				board[position] = playerChoice;
-				return position;
-			} else
-				System.out.println("Invalid position or position already occupied. Please Re-Enter the position");
+		Player winner = determineWinner();
+		if(winner==null)
+		{
+			System.out.println("Enter the position at which you want to make a move on the board:");
+			while (true) {
+				position = Integer.parseInt(scanner.nextLine());
+				if ((position > 0) && (position < 10) && board[position] == ' ') {
+					board[position] = playerChoice;
+					return position;
+				} else
+					System.out.println("Invalid position or position already occupied. Please Re-Enter the position");
+			}
 		}
+		else 
+			System.out.println(winner+ " has won");
+		return 0;
 	}
 
 	public boolean toss() {
 		int toss = (int) Math.floor(Math.random() * 10) % 2;
-		return toss == 1 ? true : false;
+		return toss == HEAD ? true : false;
+	}
+
+	public Player determineWinner() {
+		if ((board[1] == playerChoice && board[2] == playerChoice && board[3] == playerChoice)
+				|| (board[4] == playerChoice && board[5] == playerChoice && board[6] == playerChoice)
+				|| (board[7] == playerChoice && board[8] == playerChoice && board[9] == playerChoice)
+				|| (board[1] == playerChoice && board[4] == playerChoice && board[7] == playerChoice)
+				|| (board[2] == playerChoice && board[5] == playerChoice && board[8] == playerChoice)
+				|| (board[3] == playerChoice && board[6] == playerChoice && board[9] == playerChoice)
+				|| (board[1] == playerChoice && board[5] == playerChoice && board[9] == playerChoice)) {
+			return Player.Player;
+		} else if ((board[1] == computerChoice && board[2] == computerChoice && board[3] == computerChoice)
+				|| (board[4] == computerChoice && board[5] == computerChoice && board[6] == computerChoice)
+				|| (board[7] == computerChoice && board[8] == computerChoice && board[9] == computerChoice)
+				|| (board[1] == computerChoice && board[4] == computerChoice && board[7] == computerChoice)
+				|| (board[2] == computerChoice && board[5] == computerChoice && board[8] == computerChoice)
+				|| (board[3] == computerChoice && board[6] == computerChoice && board[9] == computerChoice)
+				|| (board[1] == computerChoice && board[5] == computerChoice && board[9] == computerChoice)) {
+			return Player.Computer;
+		}
+		return null;
 	}
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to TicTacToe game");
 		TicTacToeGame ticTacToe = new TicTacToeGame();
-		boolean isPlayerFirst = ticTacToe.toss();
-		// Create a board
 		ticTacToe.board = ticTacToe.createBoard();
-		// Get Player Choice
-		char playerChoice = ticTacToe.getPlayerChoice();
-		System.out.println("Player selected = " + playerChoice);
-		// Display Board
 		ticTacToe.showBoard();
-		// Check if user entered valid position and make a move
-		int position = ticTacToe.makeAMove();
-		ticTacToe.showBoard();
+		boolean isPlayerFirst = ticTacToe.toss();
+		if (isPlayerFirst == true) {
+			System.out.println("Player Plays First");
+			char playerChoice = ticTacToe.getPlayerChoice();
+			System.out.println("Player selected = " + playerChoice);
+			int position = 1;
+			while(position!=0) {
+			position = ticTacToe.makeAMove();
+			ticTacToe.showBoard();
+			}
+		} else {
+			System.out.println("Computer Plays First");
+		}
 	}
 }
